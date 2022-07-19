@@ -107,9 +107,12 @@ async function fetchCategoryWiseProduct(category) {
 
   for (let i = 0; i < categoryOrders.length; i++) {
     for (let j = 0; j < categoryOrders[i].products.length; j++) {
-      earnings +=
-        categoryOrders[i].products[j].quantity *
-        categoryOrders[i].products[j].product.price;
+      /* Fixed Issue:  If a single order have more than one product, Chart shows same Total earning for all the products */
+      if (categoryOrders[i].products[j].product.category == category) {
+        earnings +=
+          categoryOrders[i].products[j].quantity *
+          categoryOrders[i].products[j].product.price;
+      }
     }
   }
   return earnings;
